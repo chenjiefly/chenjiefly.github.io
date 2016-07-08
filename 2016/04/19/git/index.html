@@ -1,0 +1,405 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+  
+  <title>git | chenjiefly的博客</title>
+  <meta name="author" content="chenjiefly">
+  
+  <meta name="description" content="git常用方法和技巧整理归纳">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="git"/>
+  <meta property="og:site_name" content="chenjiefly的博客"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  <link href="/favicon.ico" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="chenjiefly的博客" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+
+  
+<script type="text/javascript">
+    var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "//hm.baidu.com/hm.js?b7eade04c61852edaa0158418c6da079";
+          var s = document.getElementsByTagName("script")[0]; 
+          s.parentNode.insertBefore(hm, s);
+        })();
+</script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</head>
+
+
+<body>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">chenjiefly的博客</a></h1>
+  <span class="dash">——</span>
+  <h2><a href="/">怠慢不能励精，险躁不能冶性</a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/">主页</a></li>
+    
+      <li><a href="https://github.com/chenjiefly">Github</a></li>
+    
+      <li><a href="/archives">归档</a></li>
+    
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div></header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
+  
+    <div class="gallery">
+  <div class="photoset">
+    
+      
+        <img src="">
+      
+    
+  </div>
+  <div class="control">
+    <div class="prev"></div>
+    <div class="next"></div>
+  </div>
+</div>
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2016-04-19T06:52:01.000Z"><a href="/2016/04/19/git/">2016-04-19</a></time>
+      
+      
+  
+    <h1 class="title">git</h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <div id="toc" class="toc-article">
+    <div class="toc-title">本文目录</div>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#gitconfig-配置"><span class="toc-text">.gitconfig 配置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#常用配置如下"><span class="toc-text">常用配置如下</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#oh-my-zsh"><span class="toc-text">oh-my-zsh</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#git-常用命令"><span class="toc-text">git 常用命令</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#一、修改内容和版本管理"><span class="toc-text">一、修改内容和版本管理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#二、关联远程仓库和首次提交"><span class="toc-text">二、关联远程仓库和首次提交</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#三、分支"><span class="toc-text">三、分支</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#四、保存和恢复工作现场"><span class="toc-text">四、保存和恢复工作现场</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#五、标签"><span class="toc-text">五、标签</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#git-技巧"><span class="toc-text">git 技巧</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#一、git-hooks"><span class="toc-text">一、git hooks</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#二、忽略文件-gitignore"><span class="toc-text">二、忽略文件 .gitignore</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#三、配置别名"><span class="toc-text">三、配置别名</span></a></li></ol></li></ol>
+</div>
+      
+        <ul>
+<li>git常用方法和技巧整理归纳</li>
+</ul>
+<img src="/2016/04/19/git/logo.png" alt="图片来源：bing" title="图片来源：bing">
+<a id="more"></a>
+<h2 id="gitconfig-配置"><a href="#gitconfig-配置" class="headerlink" title=".gitconfig 配置"></a>.gitconfig 配置</h2><h3 id="常用配置如下"><a href="#常用配置如下" class="headerlink" title="常用配置如下"></a>常用配置如下</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">[user]</span><br><span class="line">    name = xxx</span><br><span class="line">    email = xxx@yyy.com</span><br><span class="line">[push]</span><br><span class="line">    default = simple</span><br><span class="line">[alias]</span><br><span class="line">    lg = log --color --graph --pretty=format:&apos;%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)&lt;%an&gt;%Creset&apos; --abbrev-commit</span><br><span class="line">[alias]</span><br><span class="line">    st = status</span><br><span class="line">[alias]</span><br><span class="line">    co = checkout</span><br><span class="line">[alias]</span><br><span class="line">    bh = branch</span><br><span class="line">[alias]</span><br><span class="line">    pl = pull</span><br><span class="line">[alias]</span><br><span class="line">    cm = commit -m</span><br><span class="line">[alias]</span><br><span class="line">    ps = push</span><br><span class="line">[alias]</span><br><span class="line">    rlg = reflog</span><br><span class="line">[alias]</span><br><span class="line">    info = config --local -l</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>lg</code>的配置可以非常漂亮简洁地将日志打印出来，使用<code>git lg</code>即可</li>
+<li>其他简写命令同<code>lg</code></li>
+</ul>
+<h3 id="oh-my-zsh"><a href="#oh-my-zsh" class="headerlink" title="oh-my-zsh"></a>oh-my-zsh</h3><p>1、推荐使用oh-my-zsh这个shell</p>
+<ul>
+<li>提供了许多默认的git命令简写配置</li>
+</ul>
+<p>2、简写配置路径（MAC系统）</p>
+<ul>
+<li>可查看家目录下的<code>.oh-my-zsh/plugins/git/git.plugin.zsh</code></li>
+</ul>
+<h2 id="git-常用命令"><a href="#git-常用命令" class="headerlink" title="git 常用命令"></a>git 常用命令</h2><h3 id="一、修改内容和版本管理"><a href="#一、修改内容和版本管理" class="headerlink" title="一、修改内容和版本管理"></a>一、修改内容和版本管理</h3><p>1、丢弃工作区修改</p>
+<ul>
+<li>修改了内容之后，还未执行<code>git add</code></li>
+<li><p>如果需要丢弃工作区修改，那么按照git status的提示恢复</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># &lt;file&gt;为文件名（全路径）</span><br><span class="line"># 注意命令中的--，如果没有--则变成了切换分支命令</span><br><span class="line">git checkout -- &lt;file&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>执行后的两种情况（总结就是回到最近一次git add或commit时的状态）</p>
+<ul>
+<li>修改内容还没有被放到暂存区，那么撤销修改就回到和版本库一模一样的状态；</li>
+<li>修改内容已经添加到暂存区后，又作了修改，那么撤销修改就回到添加到暂存区后的状态。</li>
+</ul>
+</li>
+</ul>
+<p>总之，就是让这个文件回到最近一次git commit或git add时的状态。</p>
+<p>2、撤销暂存区修改，放回到工作区</p>
+<ul>
+<li>执行<code>git add</code>后，修改内容提交到了暂存区</li>
+<li>如果需要将暂存区修改放回到工作区，执行如下命令<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git reset HEAD &lt;file&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>3、回退版本库</p>
+<ul>
+<li>执行了<code>git commit</code>后，修改内容被提交到版本库，产生了新的版本hash值</li>
+<li><p>回到某一个历史版本</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"># working copy：工作区</span><br><span class="line"># stage/index：暂存区</span><br><span class="line"># Repository：版本库</span><br><span class="line"># HEAD：当前分支版本顶端的指针，也就是在当前分支最近的一次commit提交</span><br><span class="line"></span><br><span class="line">git reset --soft HEAD^   # HEAD恢复为上一个版本，相当于撤销了commit操作</span><br><span class="line">git reset HEAD^          # 默认同--mixed</span><br><span class="line">git reset --mixed HEAD^  # HEAD、暂存区恢复为上一个版本，相当于撤销了commit和add两个操作</span><br><span class="line">git reset --hard hash    # HEAD、暂存区、工作区全部恢复为hash对应的版本，相当于撤销了commit、add和文件修改三个操作</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>注意</p>
+<ul>
+<li>git reset –hard是非常危险的操作，会导致最近一次add、commit后的内容全部丢失</li>
+<li>如果是误操作，可以使用<code>git reflog</code>查找命令执行历史记录，找到想要回退的版本号</li>
+</ul>
+</li>
+</ul>
+<h3 id="二、关联远程仓库和首次提交"><a href="#二、关联远程仓库和首次提交" class="headerlink" title="二、关联远程仓库和首次提交"></a>二、关联远程仓库和首次提交</h3><p>1、关联远程仓库</p>
+<ul>
+<li>将本地仓库和远程仓库关联起来<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git remote add origin git@server-name:path/repo-name.git</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>2、首次提交</p>
+<ul>
+<li>第一次推送master分支的所有内容<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push -u origin master</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>3、后续提交</p>
+<ul>
+<li>首次提交命令执行后，后续有修改需要推送到远程分支，可以执行下面命令<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push origin master  # 可使用zsh缩写命令gp</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="三、分支"><a href="#三、分支" class="headerlink" title="三、分支"></a>三、分支</h3><p>1、创建并切换到新分支<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">git checkout -b dev</span><br><span class="line"></span><br><span class="line"># 等同于下面两条命令</span><br><span class="line">git branch dev  # 新建分支</span><br><span class="line">git checkout dev  # 切换分支</span><br></pre></td></tr></table></figure></p>
+<p>2、删除分支<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git branch -d dev</span><br><span class="line">git branch -D dev  # 不管是否被merge，都直接强行删除该分支</span><br></pre></td></tr></table></figure></p>
+<p>3、合并某分支到当前分支<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git merge dev -m &apos;合并说明&apos;</span><br></pre></td></tr></table></figure></p>
+<h3 id="四、保存和恢复工作现场"><a href="#四、保存和恢复工作现场" class="headerlink" title="四、保存和恢复工作现场"></a>四、保存和恢复工作现场</h3><p>1、保存工作现场</p>
+<ul>
+<li>临时遇到bug需要修复，就需要新建分支来修复这个bug</li>
+<li>但是本地的工作还未完成，且不像提交本地修改</li>
+<li>可执行下面命令来保存当前工作现场，之后工作区就会显示是干净的，于是就可以去新建分支处理bug了<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git stash</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>2、恢复工作现场</p>
+<ul>
+<li>方法一（推荐使用）<ul>
+<li>用git stash pop，恢复的同时把stash内容也删了，即<code>git stash list</code>最近一条记录被删除了</li>
+</ul>
+</li>
+<li>方法二<ul>
+<li>用git stash apply恢复，但是恢复后，stash内容并不删除，需要用git stash drop来删除</li>
+</ul>
+</li>
+</ul>
+<p>3、查看工作现场<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git stash list</span><br></pre></td></tr></table></figure></p>
+<h3 id="五、标签"><a href="#五、标签" class="headerlink" title="五、标签"></a>五、标签</h3><p>1、打标签<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git tag v0.1  # 为当前版本打标签</span><br><span class="line">git tag v0.1 hash  # 为某个特定版本打标签</span><br><span class="line">git tag -a v0.1 -m &quot;version 0.1 released&quot; hash  # 创建带说明的标签，-a为标签名，-m为说明</span><br></pre></td></tr></table></figure></p>
+<p>2、删除标签<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git tag -d v0.1</span><br></pre></td></tr></table></figure></p>
+<p>3、查看所有标签<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git tag</span><br></pre></td></tr></table></figure></p>
+<h2 id="git-技巧"><a href="#git-技巧" class="headerlink" title="git 技巧"></a>git 技巧</h2><h3 id="一、git-hooks"><a href="#一、git-hooks" class="headerlink" title="一、git hooks"></a>一、git hooks</h3><p>1、钩子的作用</p>
+<ul>
+<li>当执行某些git命令时，可以自动调用事先安装的钩子</li>
+<li>钩子文件中是一系列命令的集合</li>
+<li>如<code>pre-commit</code>这个钩子没有参数，在得到提交消息和开始提交(commit)前被调用。如果钩子执行结果是非零，那么 ‘git-commit’ 命令就会中止执行。</li>
+</ul>
+<p>2、安装钩子</p>
+<ul>
+<li>将pre-commit文件拷贝到项目根目录下的.git/hooks/中</li>
+<li>修改钩子执行权限<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod 755 .git/hooks/pre-commit</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>3、pre-commit示例<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"># buid gitbook</span><br><span class="line">gitbook build ./</span><br><span class="line"></span><br><span class="line"># use node to do something</span><br><span class="line"># echo &quot;do something ...&quot;;</span><br><span class="line"># node xxx.js</span><br><span class="line"># echo &quot;done !&quot;;</span><br><span class="line"></span><br><span class="line"># git</span><br><span class="line">git add -A</span><br><span class="line"></span><br><span class="line">exit 0;</span><br></pre></td></tr></table></figure></p>
+<h3 id="二、忽略文件-gitignore"><a href="#二、忽略文件-gitignore" class="headerlink" title="二、忽略文件 .gitignore"></a>二、忽略文件 .gitignore</h3><p>1、github准备的配置文件<br><a href="https://github.com/github/gitignore" target="_blank" rel="external">https://github.com/github/gitignore</a></p>
+<h3 id="三、配置别名"><a href="#三、配置别名" class="headerlink" title="三、配置别名"></a>三、配置别名</h3><p>1、把暂存区的修改撤销掉（unstage），重新放回工作区的命令别名<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git config --global alias.unstage &apos;reset HEAD&apos;</span><br></pre></td></tr></table></figure></p>
+<p>2、配置别名文件</p>
+<ul>
+<li>不加<code>--global</code>，则配置位于当前仓库的<code>.git/config</code>文件中</li>
+<li>加了<code>--global</code>，则配置位于用户主目录的隐藏文件<code>.gitconfig</code>中</li>
+</ul>
+<blockquote>
+<p>以上部分内容参考总结自<a href="http://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000/" target="_blank" rel="external">《廖雪峰的git教程》</a></p>
+</blockquote>
+
+      
+    </div>
+    <footer>
+      
+        
+  
+  <div class="categories">
+    <a href="/categories/工具/">工具</a>
+  </div>
+
+        
+  
+  <div class="tags">
+    <a href="/tags/git/">git</a>
+  </div>
+
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+<section id="comment">
+  <h1 class="title">留言</h1>
+
+  
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+  
+</section>
+
+</div></div>
+    <aside id="sidebar" class="alignright">
+  <div class="search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="搜索">
+    <input type="hidden" name="q" value="site:chenjiefly.github.io">
+  </form>
+</div>
+
+  
+<div class="widget tag">
+  <h3 class="title">最新文章</h3>
+  <ul class="entry">
+    
+      <li>
+        <a href="/2016/06/27/jquery/">jquery源码分析</a>
+      </li>
+    
+      <li>
+        <a href="/2016/06/27/html/">HTML相关知识</a>
+      </li>
+    
+      <li>
+        <a href="/2016/06/23/css/">CSS知识小记</a>
+      </li>
+    
+      <li>
+        <a href="/2016/06/23/jsPerformance/">Javascript 性能分析和提升技巧</a>
+      </li>
+    
+      <li>
+        <a href="/2016/06/22/chromeExtension/">chrome 浏览器常用扩展应用</a>
+      </li>
+    
+  </ul>
+</div>
+
+
+  
+<div class="widget tag">
+  <h3 class="title">分类</h3>
+  <ul class="entry">
+  
+    <li><a href="/categories/CSS/">CSS</a><small>1</small></li>
+  
+    <li><a href="/categories/Javascript/">Javascript</a><small>7</small></li>
+  
+    <li><a href="/categories/博客/">博客</a><small>1</small></li>
+  
+    <li><a href="/categories/基础知识/">基础知识</a><small>1</small></li>
+  
+    <li><a href="/categories/工具/">工具</a><small>4</small></li>
+  
+    <li><a href="/categories/技术/">技术</a><small>2</small></li>
+  
+  </ul>
+</div>
+
+
+  
+<div class="widget tag">
+  <h3 class="title">标签</h3>
+  <ul class="entry">
+  
+    <li><a href="/tags/CSS/">CSS</a><small>1</small></li>
+  
+    <li><a href="/tags/Canvas/">Canvas</a><small>1</small></li>
+  
+    <li><a href="/tags/HTML/">HTML</a><small>1</small></li>
+  
+    <li><a href="/tags/JS性能/">JS性能</a><small>1</small></li>
+  
+    <li><a href="/tags/chrome/">chrome</a><small>1</small></li>
+  
+    <li><a href="/tags/debug/">debug</a><small>1</small></li>
+  
+    <li><a href="/tags/fresh/">fresh</a><small>1</small></li>
+  
+    <li><a href="/tags/git/">git</a><small>1</small></li>
+  
+    <li><a href="/tags/gitbook/">gitbook</a><small>1</small></li>
+  
+    <li><a href="/tags/hexo/">hexo</a><small>1</small></li>
+  
+    <li><a href="/tags/jquery/">jquery</a><small>1</small></li>
+  
+    <li><a href="/tags/network/">network</a><small>1</small></li>
+  
+    <li><a href="/tags/react/">react</a><small>1</small></li>
+  
+    <li><a href="/tags/regExp/">regExp</a><small>1</small></li>
+  
+    <li><a href="/tags/software/">software</a><small>1</small></li>
+  
+    <li><a href="/tags/threejs/">threejs</a><small>1</small></li>
+  
+    <li><a href="/tags/tools/">tools</a><small>1</small></li>
+  
+    <li><a href="/tags/提效/">提效</a><small>1</small></li>
+  
+  </ul>
+</div>
+
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  
+  &copy; 2016 chenjiefly
+  
+  
+</div>
+<div class="clearfix"></div></footer>
+  <script src="//libs.baidu.com/jquery/2.0.3/jquery.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+<script type="text/javascript">
+var disqus_shortname = 'chenjiefly';
+
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+</script>
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+
+
+
+</body>
+</html>

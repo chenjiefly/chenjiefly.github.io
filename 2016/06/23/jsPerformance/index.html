@@ -1,0 +1,343 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+  
+  <title>Javascript 性能分析和提升技巧 | chenjiefly的博客</title>
+  <meta name="author" content="chenjiefly">
+  
+  <meta name="description" content="记录Javascript的性能分析方法和提升性能的一些技巧">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="Javascript 性能分析和提升技巧"/>
+  <meta property="og:site_name" content="chenjiefly的博客"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  <link href="/favicon.ico" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="chenjiefly的博客" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+
+  
+<script type="text/javascript">
+    var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "//hm.baidu.com/hm.js?b7eade04c61852edaa0158418c6da079";
+          var s = document.getElementsByTagName("script")[0]; 
+          s.parentNode.insertBefore(hm, s);
+        })();
+</script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</head>
+
+
+<body>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">chenjiefly的博客</a></h1>
+  <span class="dash">——</span>
+  <h2><a href="/">怠慢不能励精，险躁不能冶性</a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/">主页</a></li>
+    
+      <li><a href="https://github.com/chenjiefly">Github</a></li>
+    
+      <li><a href="/archives">归档</a></li>
+    
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div></header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
+  
+    <div class="gallery">
+  <div class="photoset">
+    
+      
+        <img src="">
+      
+    
+  </div>
+  <div class="control">
+    <div class="prev"></div>
+    <div class="next"></div>
+  </div>
+</div>
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2016-06-23T07:07:37.000Z"><a href="/2016/06/23/jsPerformance/">2016-06-23</a></time>
+      
+      
+  
+    <h1 class="title">Javascript 性能分析和提升技巧</h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <div id="toc" class="toc-article">
+    <div class="toc-title">本文目录</div>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#频繁调用方法的执行控制"><span class="toc-text">频繁调用方法的执行控制</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#debounce（去抖）"><span class="toc-text">debounce（去抖）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#throttle（节流器）"><span class="toc-text">throttle（节流器）</span></a></li></ol></li></ol>
+</div>
+      
+        <ul>
+<li>记录Javascript的性能分析方法</li>
+<li>总结提升性能的一些技巧和方案</li>
+</ul>
+<img src="/2016/06/23/jsPerformance/logo.png" alt="图片来源：google" title="图片来源：google">
+<a id="more"></a>
+<h2 id="频繁调用方法的执行控制"><a href="#频繁调用方法的执行控制" class="headerlink" title="频繁调用方法的执行控制"></a>频繁调用方法的执行控制</h2><ul>
+<li><p>问题描述</p>
+<ul>
+<li>有些DOM事件是会频繁触发的，比如mouseover、scroll、resize和input等</li>
+<li>如果每次事件触发操作后都要进行较为复杂的运算，那么页面性能一定会急剧下降，直接导致页面卡顿</li>
+</ul>
+</li>
+<li><p>解决方案</p>
+<ul>
+<li>目前针对不同的应用场景有两种解决方法，即debounce和throttle</li>
+</ul>
+</li>
+</ul>
+<h3 id="debounce（去抖）"><a href="#debounce（去抖）" class="headerlink" title="debounce（去抖）"></a>debounce（去抖）</h3><ul>
+<li><p>目的</p>
+<ul>
+<li><em>将一个连续的调用归为一个</em></li>
+<li>希望频繁事件的回调函数在某段连续时间内，在事件触发后只执行一次</li>
+<li>注意<em>是在连续触发结束后的最后一次事件触发后的若干事件后执行一次回调</em></li>
+</ul>
+</li>
+<li><p>场景</p>
+<ul>
+<li>以文本框输入为例，用户连续输入多个字符停止前，不应该去执行校验回调方法</li>
+<li>当用户停止键入后，如果在Xms内没有再触发输入事件，则执行一次回调方法</li>
+</ul>
+</li>
+<li><p>代码</p>
+</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span><br><span class="line"> *</span><br><span class="line"> * @param fn &#123;Function&#125;   实际要执行的函数</span><br><span class="line"> * @param delay &#123;Number&#125;  延迟时间，单位是毫秒（ms）</span><br><span class="line"> *</span><br><span class="line"> * @return &#123;Function&#125;     返回一个“防反跳”了的函数</span><br><span class="line"> */</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">debounce</span>(<span class="params">fn, delay</span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 定时器，用来 setTimeout</span></span><br><span class="line">  <span class="keyword">var</span> timer</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 返回一个函数，这个函数会在一个时间区间结束后的 delay 毫秒时执行 fn 函数</span></span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 保存函数调用时的上下文和参数，传递给 fn</span></span><br><span class="line">    <span class="keyword">var</span> context = <span class="keyword">this</span></span><br><span class="line">    <span class="keyword">var</span> args = <span class="built_in">arguments</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 每次这个返回的函数被调用，就清除定时器，以保证不执行 fn</span></span><br><span class="line">    clearTimeout(timer)</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 当返回的函数被最后一次调用后（也就是用户停止了某个连续的操作）</span></span><br><span class="line">    <span class="comment">// 再过 delay 毫秒就执行 fn</span></span><br><span class="line">    timer = setTimeout(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">      fn.apply(context, args)</span><br><span class="line">    &#125;, delay)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="throttle（节流器）"><a href="#throttle（节流器）" class="headerlink" title="throttle（节流器）"></a>throttle（节流器）</h3><ul>
+<li><p>目的</p>
+<ul>
+<li><em>不允许方法在每Xms间执行超过一次</em></li>
+<li>和debounce的主要区别是throttle保证方法每Xms有规律的执行</li>
+</ul>
+</li>
+<li><p>场景</p>
+<ul>
+<li>页面懒加载区块，需要边向下滚动边加载数据，而不是用户停止滚动后才去加载（<em>这与debounce有本质区别</em>）</li>
+</ul>
+</li>
+<li><p>代码</p>
+</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span><br><span class="line">*</span><br><span class="line">* @param fn &#123;Function&#125;   实际要执行的函数</span><br><span class="line">* @param delay &#123;Number&#125;  执行间隔，单位是毫秒（ms）</span><br><span class="line">*</span><br><span class="line">* @return &#123;Function&#125;     返回一个“节流”函数</span><br><span class="line">*/</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">throttle</span>(<span class="params">fn, threshhold</span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 记录上次执行的时间</span></span><br><span class="line">  <span class="keyword">var</span> last</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 定时器</span></span><br><span class="line">  <span class="keyword">var</span> timer</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 默认间隔为 250ms</span></span><br><span class="line">  threshhold || (threshhold = <span class="number">250</span>)</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 返回的函数，每过 threshhold 毫秒就执行一次 fn 函数</span></span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 保存函数调用时的上下文和参数，传递给 fn</span></span><br><span class="line">    <span class="keyword">var</span> context = <span class="keyword">this</span></span><br><span class="line">    <span class="keyword">var</span> args = <span class="built_in">arguments</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> now = +<span class="keyword">new</span> <span class="built_in">Date</span>()</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 如果距离上次执行 fn 函数的时间小于 threshhold，那么就放弃执行 fn，并重新计时</span></span><br><span class="line">    <span class="keyword">if</span> (last &amp;&amp; now &lt; last + threshhold) &#123;</span><br><span class="line">      clearTimeout(timer)</span><br><span class="line"></span><br><span class="line">      <span class="comment">// 保证在当前时间区间结束后，再执行一次 fn</span></span><br><span class="line">      timer = setTimeout(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        last = now</span><br><span class="line">        fn.apply(context, args)</span><br><span class="line">      &#125;, threshhold)</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 在时间区间的最开始和到达指定间隔的时候执行一次 fn</span></span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      last = now</span><br><span class="line">      fn.apply(context, args)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer>
+      
+        
+  
+  <div class="categories">
+    <a href="/categories/Javascript/">Javascript</a>
+  </div>
+
+        
+  
+  <div class="tags">
+    <a href="/tags/JS性能/">JS性能</a>
+  </div>
+
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+<section id="comment">
+  <h1 class="title">留言</h1>
+
+  
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+  
+</section>
+
+</div></div>
+    <aside id="sidebar" class="alignright">
+  <div class="search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="搜索">
+    <input type="hidden" name="q" value="site:chenjiefly.github.io">
+  </form>
+</div>
+
+  
+<div class="widget tag">
+  <h3 class="title">最新文章</h3>
+  <ul class="entry">
+    
+      <li>
+        <a href="/2016/06/27/jquery/">jquery源码分析</a>
+      </li>
+    
+      <li>
+        <a href="/2016/06/27/html/">HTML相关知识</a>
+      </li>
+    
+      <li>
+        <a href="/2016/06/23/css/">CSS知识小记</a>
+      </li>
+    
+      <li>
+        <a href="/2016/06/23/jsPerformance/">Javascript 性能分析和提升技巧</a>
+      </li>
+    
+      <li>
+        <a href="/2016/06/22/chromeExtension/">chrome 浏览器常用扩展应用</a>
+      </li>
+    
+  </ul>
+</div>
+
+
+  
+<div class="widget tag">
+  <h3 class="title">分类</h3>
+  <ul class="entry">
+  
+    <li><a href="/categories/CSS/">CSS</a><small>1</small></li>
+  
+    <li><a href="/categories/Javascript/">Javascript</a><small>7</small></li>
+  
+    <li><a href="/categories/博客/">博客</a><small>1</small></li>
+  
+    <li><a href="/categories/基础知识/">基础知识</a><small>1</small></li>
+  
+    <li><a href="/categories/工具/">工具</a><small>4</small></li>
+  
+    <li><a href="/categories/技术/">技术</a><small>2</small></li>
+  
+  </ul>
+</div>
+
+
+  
+<div class="widget tag">
+  <h3 class="title">标签</h3>
+  <ul class="entry">
+  
+    <li><a href="/tags/CSS/">CSS</a><small>1</small></li>
+  
+    <li><a href="/tags/Canvas/">Canvas</a><small>1</small></li>
+  
+    <li><a href="/tags/HTML/">HTML</a><small>1</small></li>
+  
+    <li><a href="/tags/JS性能/">JS性能</a><small>1</small></li>
+  
+    <li><a href="/tags/chrome/">chrome</a><small>1</small></li>
+  
+    <li><a href="/tags/debug/">debug</a><small>1</small></li>
+  
+    <li><a href="/tags/fresh/">fresh</a><small>1</small></li>
+  
+    <li><a href="/tags/git/">git</a><small>1</small></li>
+  
+    <li><a href="/tags/gitbook/">gitbook</a><small>1</small></li>
+  
+    <li><a href="/tags/hexo/">hexo</a><small>1</small></li>
+  
+    <li><a href="/tags/jquery/">jquery</a><small>1</small></li>
+  
+    <li><a href="/tags/network/">network</a><small>1</small></li>
+  
+    <li><a href="/tags/react/">react</a><small>1</small></li>
+  
+    <li><a href="/tags/regExp/">regExp</a><small>1</small></li>
+  
+    <li><a href="/tags/software/">software</a><small>1</small></li>
+  
+    <li><a href="/tags/threejs/">threejs</a><small>1</small></li>
+  
+    <li><a href="/tags/tools/">tools</a><small>1</small></li>
+  
+    <li><a href="/tags/提效/">提效</a><small>1</small></li>
+  
+  </ul>
+</div>
+
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  
+  &copy; 2016 chenjiefly
+  
+  
+</div>
+<div class="clearfix"></div></footer>
+  <script src="//libs.baidu.com/jquery/2.0.3/jquery.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+<script type="text/javascript">
+var disqus_shortname = 'chenjiefly';
+
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+</script>
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+
+
+
+</body>
+</html>

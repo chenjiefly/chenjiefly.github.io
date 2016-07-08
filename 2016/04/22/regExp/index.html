@@ -1,0 +1,401 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+  
+  <title>正则表达式RegExp | chenjiefly的博客</title>
+  <meta name="author" content="chenjiefly">
+  
+  <meta name="description" content="正则表达式">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="正则表达式RegExp"/>
+  <meta property="og:site_name" content="chenjiefly的博客"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  <link href="/favicon.ico" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="chenjiefly的博客" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+
+  
+<script type="text/javascript">
+    var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "//hm.baidu.com/hm.js?b7eade04c61852edaa0158418c6da079";
+          var s = document.getElementsByTagName("script")[0]; 
+          s.parentNode.insertBefore(hm, s);
+        })();
+</script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</head>
+
+
+<body>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">chenjiefly的博客</a></h1>
+  <span class="dash">——</span>
+  <h2><a href="/">怠慢不能励精，险躁不能冶性</a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/">主页</a></li>
+    
+      <li><a href="https://github.com/chenjiefly">Github</a></li>
+    
+      <li><a href="/archives">归档</a></li>
+    
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div></header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
+  
+    <div class="gallery">
+  <div class="photoset">
+    
+      
+        <img src="">
+      
+    
+  </div>
+  <div class="control">
+    <div class="prev"></div>
+    <div class="next"></div>
+  </div>
+</div>
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2016-04-22T14:25:44.000Z"><a href="/2016/04/22/regExp/">2016-04-22</a></time>
+      
+      
+  
+    <h1 class="title">正则表达式RegExp</h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <div id="toc" class="toc-article">
+    <div class="toc-title">本文目录</div>
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#一、正则技术站点"><span class="toc-text">一、正则技术站点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#二、常用正则表达式"><span class="toc-text">二、常用正则表达式</span></a></li></ol>
+</div>
+      
+        <ul>
+<li>正则参考手册和在线工具</li>
+<li>常用正则表达式</li>
+<li>正则表达式技巧</li>
+</ul>
+<img src="/2016/04/22/regExp/logo.jpg" alt="图片来源：bing" title="图片来源：bing">
+<a id="more"></a>
+<h3 id="一、正则技术站点"><a href="#一、正则技术站点" class="headerlink" title="一、正则技术站点"></a>一、正则技术站点</h3><p>1、W3C上的正则参考手册<br><a href="http://www.w3school.com.cn/jsref/jsref_obj_regexp.asp" target="_blank" rel="external">http://www.w3school.com.cn/jsref/jsref_obj_regexp.asp</a></p>
+<p>2、在线测试工具<br><a href="http://tool.chinaz.com/regex" target="_blank" rel="external">http://tool.chinaz.com/regex</a></p>
+<p>3、<em>正则表达式分析器</em><br><a href="https://regexper.com/" target="_blank" rel="external">https://regexper.com/</a></p>
+<h3 id="二、常用正则表达式"><a href="#二、常用正则表达式" class="headerlink" title="二、常用正则表达式"></a>二、常用正则表达式</h3><p>1、校验密码强度</p>
+<ul>
+<li>密码的强度必须是包含大小写字母和数字的组合，不能使用特殊字符，长度在8-10之间。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).&#123;8,10&#125;$</span><br></pre></td></tr></table></figure>
+<p>2、校验中文</p>
+<ul>
+<li>字符串仅能是中文。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">^[\\u4e00-\\u9fa5]&#123;0,&#125;$</span><br></pre></td></tr></table></figure>
+<p>3、由数字、26个英文字母或下划线组成的字符串</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">* ^\\w+$</span><br></pre></td></tr></table></figure>
+<p>4、校验E-Mail 地址</p>
+<ul>
+<li>同密码一样，下面是E-mail地址合规性的正则检查语句。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[\\w!#$%&amp;&apos;*+/=?^_`&#123;|&#125;~-]+(?:\\.[\\w!#$%&amp;&apos;*+/=?^_`&#123;|&#125;~-]+)*@(?:[\\w](?:[\\w-]*[\\w])?\\.)+[\\w](?:[\\w-]*[\\w])?</span><br></pre></td></tr></table></figure>
+<p>5、校验身份证号码</p>
+<ul>
+<li>下面是身份证号码的正则校验，15 或 18位。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">15位：</span><br><span class="line">^[1-9]\\d&#123;7&#125;((0\\d)|(1[0-2]))(([0|1|2]\\d)|3[0-1])\\d&#123;3&#125;$</span><br><span class="line"></span><br><span class="line">18位：</span><br><span class="line">^[1-9]\\d&#123;5&#125;[1-9]\\d&#123;3&#125;((0\\d)|(1[0-2]))(([0|1|2]\\d)|3[0-1])\\d&#123;3&#125;([0-9]|X)$</span><br></pre></td></tr></table></figure>
+<p>6、校验日期</p>
+<ul>
+<li>“yyyy-mm-dd“ 格式的日期校验，已考虑平闰年。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">^(?:(?!0000)[0-9]&#123;4&#125;-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-8])|(?:0[13-9]|1[0-2])-(?:29|30)|(?:0[13578]|1[02])-31)|(?:[0-9]&#123;2&#125;(?:0[48]|[2468][048]|[13579][26])|(?:0[48]|[2468][048]|[13579][26])00)-02-29)$</span><br></pre></td></tr></table></figure>
+<p>7、校验金额</p>
+<ul>
+<li>金额校验，精确到2位小数。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">^[0-9]+(.[0-9]&#123;2&#125;)?$</span><br></pre></td></tr></table></figure>
+<p>8、校验手机号</p>
+<ul>
+<li>下面是国内 13、15、18开头的手机号正则表达式。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">^(13[0-9]|14[5|7]|15[0|1|2|3|5|6|7|8|9]|18[0|1|2|3|5|6|7|8|9])\\d&#123;8&#125;$</span><br></pre></td></tr></table></figure>
+<p>9、判断IE的版本</p>
+<ul>
+<li>IE目前还没被完全取代，很多页面还是需要做版本兼容，下面是IE版本检查的表达式。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">^.*MSIE [5-8](?:\\.[0-9]+)?(?!.*Trident\\/[5-9]\\.0).*$</span><br></pre></td></tr></table></figure>
+<p>10、校验IP-v4地址</p>
+<ul>
+<li>IP4 正则语句。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">\\b(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.)&#123;3&#125;(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\b</span><br></pre></td></tr></table></figure>
+<p>11、校验IP-v6地址</p>
+<ul>
+<li>IP6 正则语句。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(([0-9a-fA-F]&#123;1,4&#125;:)&#123;7,7&#125;[0-9a-fA-F]&#123;1,4&#125;|([0-9a-fA-F]&#123;1,4&#125;:)&#123;1,7&#125;:|([0-9a-fA-F]&#123;1,4&#125;:)&#123;1,6&#125;:[0-9a-fA-F]&#123;1,4&#125;|([0-9a-fA-F]&#123;1,4&#125;:)&#123;1,5&#125;(:[0-9a-fA-F]&#123;1,4&#125;)&#123;1,2&#125;|([0-9a-fA-F]&#123;1,4&#125;:)&#123;1,4&#125;(:[0-9a-fA-F]&#123;1,4&#125;)&#123;1,3&#125;|([0-9a-fA-F]&#123;1,4&#125;:)&#123;1,3&#125;(:[0-9a-fA-F]&#123;1,4&#125;)&#123;1,4&#125;|([0-9a-fA-F]&#123;1,4&#125;:)&#123;1,2&#125;(:[0-9a-fA-F]&#123;1,4&#125;)&#123;1,5&#125;|[0-9a-fA-F]&#123;1,4&#125;:((:[0-9a-fA-F]&#123;1,4&#125;)&#123;1,6&#125;)|:((:[0-9a-fA-F]&#123;1,4&#125;)&#123;1,7&#125;|:)|fe80:(:[0-9a-fA-F]&#123;0,4&#125;)&#123;0,4&#125;%[0-9a-zA-Z]&#123;1,&#125;|::(ffff(:0&#123;1,4&#125;)&#123;0,1&#125;:)&#123;0,1&#125;((25[0-5]|(2[0-4]|1&#123;0,1&#125;[0-9])&#123;0,1&#125;[0-9])\\.)&#123;3,3&#125;(25[0-5]|(2[0-4]|1&#123;0,1&#125;[0-9])&#123;0,1&#125;[0-9])|([0-9a-fA-F]&#123;1,4&#125;:)&#123;1,4&#125;:((25[0-5]|(2[0-4]|1&#123;0,1&#125;[0-9])&#123;0,1&#125;[0-9])\\.)&#123;3,3&#125;(25[0-5]|(2[0-4]|1&#123;0,1&#125;[0-9])&#123;0,1&#125;[0-9]))</span><br></pre></td></tr></table></figure>
+<p>12、检查URL的前缀</p>
+<ul>
+<li>应用开发中很多时候需要区分请求是HTTPS还是HTTP，通过下面的表达式可以取出一个url的前缀然后再逻辑判断。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">if (!s.match(/^[a-zA-Z]+:\\/\\//))&#123;</span><br><span class="line">s = &apos;http://&apos; + s;&#125;</span><br></pre></td></tr></table></figure>
+<p>13、提取URL链接</p>
+<ul>
+<li>下面的这个表达式可以筛选出一段文本中的URL。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">^(f|ht)&#123;1&#125;(tp|tps):\\/\\/([\\w-]+\\.)+[\\w-]+(\\/[\\w- ./?%&amp;=]*)?</span><br></pre></td></tr></table></figure>
+<p>14、文件路径及扩展名校验</p>
+<ul>
+<li>验证文件路径和扩展名</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">^([a-zA-Z]\\:|\\\\)\\\\([^\\\\]+\\\\)*[^\\/:*?&quot;&lt;&gt;|]+\\.txt(l)?$</span><br></pre></td></tr></table></figure>
+<p>15、提取Color Hex Codes</p>
+<ul>
+<li>有时需要抽取网页中的颜色代码，可以使用下面的表达式。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">\\#([a-fA-F]|[0-9])&#123;3,6&#125;</span><br></pre></td></tr></table></figure>
+<p>16、提取网页图片</p>
+<ul>
+<li>假若你想提取网页中所有图片信息，可以利用下面的表达式。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">\\&lt; *[img][^\\&gt;]*[src] *= *[\\&quot;\\&apos;]&#123;0,1&#125;([^\\&quot;\\&apos;\\ &gt;]*)</span><br></pre></td></tr></table></figure>
+<p>17、提取页面超链接</p>
+<ul>
+<li>提取html中的超链接。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(&lt;a\\s*(?!.*\\brel=)[^&gt;]*)(href=&quot;https?://)((?!(?:(?:www\\.)?&apos;.implode(&apos;|(?:www\\.)?&apos;, $follow_list).&apos;))[^&quot;]+)&quot;((?!.*\\brel=)[^&gt;]*)(?:[^&gt;]*)&gt;</span><br></pre></td></tr></table></figure>
+<p>18、精炼CSS</p>
+<ul>
+<li>通过下面的表达式，可以搜索相同属性值的CSS，从而达到精炼代码的目的。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">^\\s*[a-zA-Z\\-]+\\s*[:]&#123;1&#125;\\s[a-zA-Z0-9\\s.#]+[;]&#123;1&#125;</span><br></pre></td></tr></table></figure>
+<p>19、抽取注释</p>
+<ul>
+<li>如果你需要移除HMTL中的注释，可以使用如下的表达式。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;!--(.*?)--&gt;</span><br></pre></td></tr></table></figure>
+<p>20、匹配HTML标签</p>
+<ul>
+<li>通过下面的表达式可以匹配出HTML中的标签。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;/?\\w+((\\s+\\w+(\\s*=\\s*(?:&quot;.*?&quot;|&apos;.*?&apos;|[\\^&apos;&quot;&gt;\\s]+))?)+\\s*|\\s*)/?&gt;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>引用自<a href="http://toutiao.com/a6275770184423489794/" target="_blank" rel="external">http://toutiao.com/a6275770184423489794/</a></p>
+</blockquote>
+
+      
+    </div>
+    <footer>
+      
+        
+  
+  <div class="categories">
+    <a href="/categories/Javascript/">Javascript</a>
+  </div>
+
+        
+  
+  <div class="tags">
+    <a href="/tags/regExp/">regExp</a>
+  </div>
+
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+<section id="comment">
+  <h1 class="title">留言</h1>
+
+  
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+  
+</section>
+
+</div></div>
+    <aside id="sidebar" class="alignright">
+  <div class="search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="搜索">
+    <input type="hidden" name="q" value="site:chenjiefly.github.io">
+  </form>
+</div>
+
+  
+<div class="widget tag">
+  <h3 class="title">最新文章</h3>
+  <ul class="entry">
+    
+      <li>
+        <a href="/2016/06/27/jquery/">jquery源码分析</a>
+      </li>
+    
+      <li>
+        <a href="/2016/06/27/html/">HTML相关知识</a>
+      </li>
+    
+      <li>
+        <a href="/2016/06/23/css/">CSS知识小记</a>
+      </li>
+    
+      <li>
+        <a href="/2016/06/23/jsPerformance/">Javascript 性能分析和提升技巧</a>
+      </li>
+    
+      <li>
+        <a href="/2016/06/22/chromeExtension/">chrome 浏览器常用扩展应用</a>
+      </li>
+    
+  </ul>
+</div>
+
+
+  
+<div class="widget tag">
+  <h3 class="title">分类</h3>
+  <ul class="entry">
+  
+    <li><a href="/categories/CSS/">CSS</a><small>1</small></li>
+  
+    <li><a href="/categories/Javascript/">Javascript</a><small>7</small></li>
+  
+    <li><a href="/categories/博客/">博客</a><small>1</small></li>
+  
+    <li><a href="/categories/基础知识/">基础知识</a><small>1</small></li>
+  
+    <li><a href="/categories/工具/">工具</a><small>4</small></li>
+  
+    <li><a href="/categories/技术/">技术</a><small>2</small></li>
+  
+  </ul>
+</div>
+
+
+  
+<div class="widget tag">
+  <h3 class="title">标签</h3>
+  <ul class="entry">
+  
+    <li><a href="/tags/CSS/">CSS</a><small>1</small></li>
+  
+    <li><a href="/tags/Canvas/">Canvas</a><small>1</small></li>
+  
+    <li><a href="/tags/HTML/">HTML</a><small>1</small></li>
+  
+    <li><a href="/tags/JS性能/">JS性能</a><small>1</small></li>
+  
+    <li><a href="/tags/chrome/">chrome</a><small>1</small></li>
+  
+    <li><a href="/tags/debug/">debug</a><small>1</small></li>
+  
+    <li><a href="/tags/fresh/">fresh</a><small>1</small></li>
+  
+    <li><a href="/tags/git/">git</a><small>1</small></li>
+  
+    <li><a href="/tags/gitbook/">gitbook</a><small>1</small></li>
+  
+    <li><a href="/tags/hexo/">hexo</a><small>1</small></li>
+  
+    <li><a href="/tags/jquery/">jquery</a><small>1</small></li>
+  
+    <li><a href="/tags/network/">network</a><small>1</small></li>
+  
+    <li><a href="/tags/react/">react</a><small>1</small></li>
+  
+    <li><a href="/tags/regExp/">regExp</a><small>1</small></li>
+  
+    <li><a href="/tags/software/">software</a><small>1</small></li>
+  
+    <li><a href="/tags/threejs/">threejs</a><small>1</small></li>
+  
+    <li><a href="/tags/tools/">tools</a><small>1</small></li>
+  
+    <li><a href="/tags/提效/">提效</a><small>1</small></li>
+  
+  </ul>
+</div>
+
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  
+  &copy; 2016 chenjiefly
+  
+  
+</div>
+<div class="clearfix"></div></footer>
+  <script src="//libs.baidu.com/jquery/2.0.3/jquery.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+<script type="text/javascript">
+var disqus_shortname = 'chenjiefly';
+
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+</script>
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+
+
+
+</body>
+</html>
